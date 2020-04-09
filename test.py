@@ -4,12 +4,15 @@ client = bigquery.Client()
 
 # Perform a query.
 QUERY = (
-    'SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013` '
-    'WHERE state = "TX" '
-    'LIMIT 100')
+    'SELECT * FROM `hanwha-life.195231946.ga_sessions_20200405` '    
+    'LIMIT 10')
+print(QUERY)
 query_job = client.query(QUERY)  # API request
+
+
 rows = query_job.result()  # Waits for query to finish
 
 for row in rows:
 
-    print(row.name);
+    print(row);
+
