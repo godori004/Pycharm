@@ -26,7 +26,7 @@ def get_download_stock(market_type=None):
     download_link = download_link + '&marketType=' + market_type_param
 
     df = pd.read_html(download_link, header=0)[0]
-    return df;
+    return df
 
 
 # kospi 종목코드 목록 다운로드
@@ -41,7 +41,6 @@ def get_download_kosdaq():
     df = get_download_stock('kosdaq')
     df.종목코드 = df.종목코드.map('{:06d}.KQ'.format)
     return df
-
 
 # kospi, kosdaq 종목코드 각각 다운로드
 kospi_df = get_download_kospi()

@@ -77,5 +77,4 @@ print(day_data)
 print(type(day_data))
 
 
-
 print('--------------------------')

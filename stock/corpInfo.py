@@ -26,7 +26,7 @@ def get_download_stock(market_type=None):
     download_link = download_link + '&marketType=' + market_type_param
 
     df = pd.read_html(download_link, header=0)[0]
-    return df;
+    return df
 #https://finance.naver.com/item/sise_day.nhn?code=234340
 #https://finance.naver.com/item/sise_day.nhn?code=234340
 
