@@ -11,7 +11,14 @@ stock_type = {
 
 # 회사명으로 주식 종목 코드를 획득할 수 있도록 하는 함수
 def get_code(df, name):
-    code = df.query("name=='{}'".format(name))['code'].to_string(index=False)
+
+    tmp = df.query("name=='{}'".format(name))
+
+    if tmp.size < 1:
+        print("코드값 이 없습니다. 에러 발생")
+        raise Exception
+
+    code = tmp['code'].to_string(index=False)
 
     # 위와같이 code명을 가져오면 앞에 공백이 붙어있는 상황이 발생하여 앞뒤로 sript() 하여 공백 제거
     code = code.strip()
@@ -42,3 +49,4 @@ def get_download_kosdaq():
     df = get_download_stock('kosdaq')
     df.종목코드 = df.종목코드.map('{:06d}.KQ'.format)
     return df
+
