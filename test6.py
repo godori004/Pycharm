@@ -2,17 +2,15 @@ from stock import *
 import pandas as pd
 import time
 
-kospi_df  = corpInfo.get_download_kospi()
-kosdaq_df = corpInfo.get_download_kosdaq()
+#kospi_df  = corpInfo.get_download_kospi()
+#kosdaq_df = corpInfo.get_download_kosdaq()
+mysInfo_df = myStockInfo.getMyStocInfo()
 
-nameArr = ['한국공항','엑스큐어','세틀뱅크','롯데하이마트','에이치엘비파워','윙입푸드','성우하이텍','카스','LG디스플레이','주연테크', '아이진', '아시아나IDT', '에스폴리텍']
+nameArr = ('엑스큐어','세틀뱅크','롯데하이마트', '카스','LG디스플레이','아이진', '아시아나IDT', '윙입푸드', '에스폴리텍', '에이치엘비파워','네오셈', '원익IPS')
 codeArr = []
 corpMap = {}
 
-pdData = pd.concat([kospi_df, kosdaq_df])
-pdData = pdData[['회사명','종목코드', '업종']]
-pdData = pdData.rename(columns={'회사명': 'name', '종목코드': 'code', '업종': 'sector'})
-pdData = pdData.fillna('-')
+pdData = corpInfo.get_concat_corpInfo(corpInfo.get_download_kospi(), corpInfo.get_download_kosdaq())
 
 for name in nameArr:
     corpMap[name] = corpInfo.get_code(pdData, name)[0:-3]
@@ -20,7 +18,9 @@ for name in nameArr:
 while True:
     for key in corpMap.keys():
         test = procStock.ProcStock(corpMap[key])
-        print("{} : {}".format(key, test.getCurrentValueStr()))
+        tmp = "{} : {}|".format(key, test.getCurrentValueStr())
+        print(tmp, end='')
+
     print('-----------------------------------------------------')
     time.sleep(20)
 

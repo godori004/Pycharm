@@ -1,1 +1,1 @@
-__all__=['corpInfo','naverInfo', 'procStock']
+__all__=['corpInfo','naverInfo', 'procStock', 'myStockInfo']

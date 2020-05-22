@@ -1,8 +1,7 @@
 import pandas as pd
 import urllib3
-import re
 
-from datetime import datetime
+INDEX = '<td class="num"><span class="tah p11">'
 
 def get_url(item_name, code_df):
     code = code_df.query("name=='{}'".format(item_name))['code'].to_string(index=False)
@@ -32,20 +31,12 @@ def get_price_to_str(url):
     a = str(req.data)
 
     a = a.replace('\\n', '\n')
-    a = a.replace('\\t', '\t')
+    a = a.replace('\\t', '')
     t = a.split('\n')
 
-    date = datetime.today().strftime('%Y.%m.%d')
-    pattern = re.compile(".+." + date)
-
     for t2 in t:
-        m = pattern.match(t2)
-        if m:
-            count = count + 1
-        else:
-            if count == 1:
-                value = t2.split(">")[2].split("<")[0].replace(",", "")
-                #print(t2.split(">")[2].split("<")[0].replace(",", ""))
-                break
+        if t2.startswith(INDEX):
+            value = int(t2.replace(INDEX,"")[0:-12].replace(",",""))
+            break
 
     return value

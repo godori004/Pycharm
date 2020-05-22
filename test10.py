@@ -1,34 +1,48 @@
 import urllib3
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from stock import naverInfo
 
 http = urllib3.PoolManager()
 
-req = http.request('GET', "http://finance.naver.com/item/sise_day.nhn?code=005430")
+INDEX='<td class="num"><span class="tah p11">'
+
+req = http.request('GET', "http://finance.naver.com/item/sise_day.nhn?code=900340")
 a = str(req.data)
+
 count = 0
 date = ""
 value = 0
 
 a = a.replace('\\n', '\n')
-a = a.replace('\\t', '\t')
+a = a.replace('\\t', '')
 t = a.split('\n')
+
+naverArr = []
 
 #pattern = re.compile("\\t\\t\\t\\t\\t")
 
 date = datetime.today().strftime('%Y.%m.%d')
 pattern = re.compile(".+."+date)
 
+#print(datetime.today()-timedelta(1))
+
 for t2 in t:
-    m = pattern.match(t2)
-    if m:
-        count=count+1
-    else:
-        if count==1:
-            value = t2.split(">")[2].split("<")[0].replace(",","")
-            print(t2.split(">")[2].split("<")[0].replace(",",""))
-            break
+    if t2.startswith(INDEX):
+        naverArr.append(int(t2.replace(INDEX,"")[0:-12].replace(",","")))
+
+for t2 in naverArr:
+    print(t2)
+
+#for t2 in t:
+#    m = pattern.match(t2)
+#    if m:
+#        count=count+1
+#    else:
+#        if count==1:
+#            value = t2.split(">")[2].split("<")[0].replace(",","")
+#            print(t2.split(">")[2].split("<")[0].replace(",",""))
+#            break
 
 
 

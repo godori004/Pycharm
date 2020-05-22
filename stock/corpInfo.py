@@ -50,3 +50,9 @@ def get_download_kosdaq():
     df.종목코드 = df.종목코드.map('{:06d}.KQ'.format)
     return df
 
+def get_concat_corpInfo(kospi_df, kosdaq_df):
+    pdData = pd.concat([kospi_df, kosdaq_df])
+    pdData = pdData[['회사명', '종목코드', '업종']]
+    pdData = pdData.rename(columns={'회사명': 'name', '종목코드': 'code', '업종': 'sector'})
+    pdData = pdData.fillna('-')
+    return pdData
