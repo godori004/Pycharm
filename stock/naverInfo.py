@@ -3,6 +3,10 @@ import urllib3
 
 INDEX = '<td class="num"><span class="tah p11">'
 
+TODAY     = 5
+YESTERDAY = 10
+
+
 def get_url(item_name, code_df):
     code = code_df.query("name=='{}'".format(item_name))['code'].to_string(index=False)
     get_url(code)
@@ -32,9 +36,9 @@ def get_price_to_str(url):
 
     a = a.replace('\\n', '\n')
     a = a.replace('\\t', '')
-    t = a.split('\n')
+    a = a.split('\n')
 
-    for t2 in t:
+    for t2 in a:
         if t2.startswith(INDEX):
             value = int(t2.replace(INDEX,"")[0:-12].replace(",",""))
             break

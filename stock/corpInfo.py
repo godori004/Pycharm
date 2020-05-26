@@ -27,6 +27,7 @@ def get_code(df, name):
 
 # download url 조합
 def get_download_stock(market_type=None):
+
     market_type_param = stock_type[market_type]
     download_link = 'http://kind.krx.co.kr/corpgeneral/corpList.do'
     download_link = download_link + '?method=download'
@@ -39,20 +40,37 @@ def get_download_stock(market_type=None):
 
 # kospi 종목코드 목록 다운로드
 def get_download_kospi():
+
     df = get_download_stock('kospi')
     df.종목코드 = df.종목코드.map('{:06d}.KS'.format)
-    return df
 
+    return df
 
 # kosdaq 종목코드 목록 다운로드
 def get_download_kosdaq():
+
     df = get_download_stock('kosdaq')
     df.종목코드 = df.종목코드.map('{:06d}.KQ'.format)
+
     return df
 
 def get_concat_corpInfo(kospi_df, kosdaq_df):
+
     pdData = pd.concat([kospi_df, kosdaq_df])
     pdData = pdData[['회사명', '종목코드', '업종']]
     pdData = pdData.rename(columns={'회사명': 'name', '종목코드': 'code', '업종': 'sector'})
     pdData = pdData.fillna('-')
     return pdData
+
+def get_kospi_kosdaq_dataFrame():
+    return get_concat_corpInfo(get_download_kospi(), get_download_kosdaq())
+
+def getMyStockInfoNmCdDict(pdData, stockNameArr):
+
+    rtnDict =   {}
+
+    for name in stockNameArr:
+        rtnDict[name] = get_code(pdData, name)[0:-3]
+
+    return rtnDict
+

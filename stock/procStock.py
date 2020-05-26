@@ -2,16 +2,22 @@ from stock import naverInfo
 from pandas import DataFrame
 
 class ProcStock:
-    def __init__(self, code):
+    def __init__(self, name, code, df):
 
-        self.myPrice            = 0
-        self.myStockCnt         = 0
-        self.price              = 0
-        self.code               = code
-        self.dataFame           = DataFrame({})
-        self.tradingVolume      = 0
-        self.tradingVolumeAvg   = 0
+        #stock 정보
+        self.code = code
+        self.name = name
 
+        #내 정보
+        self.myPrice                = 0
+        self.myStockCnt             = 0
+        self.price                  = 0
+
+        self.dataFame               = DataFrame({})
+        #거래
+        self.toDayTradingVolume     = 0
+        self.yesTerTradingVolume    = 0
+        self.tradingVolumeAvg       = 0
 
     def setCode(self, code):
         self.code = code
@@ -28,6 +34,9 @@ class ProcStock:
     def getDailyPrice(self):
         #print("코드[{0}]".format(self.code))
         self.dataFame = naverInfo.get_price_to_dataFrame(naverInfo.get_url(self.code)).dropna()
+
+
+
 
     def getCurrentValue(self):
         self.getDailyPrice()

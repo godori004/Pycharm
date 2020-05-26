@@ -7,10 +7,12 @@ http = urllib3.PoolManager()
 
 INDEX='<td class="num"><span class="tah p11">'
 
+VOLUME = 5
+
 req = http.request('GET', "http://finance.naver.com/item/sise_day.nhn?code=900340")
 a = str(req.data)
 
-count = 0
+count = 1
 date = ""
 value = 0
 
@@ -32,7 +34,16 @@ for t2 in t:
         naverArr.append(int(t2.replace(INDEX,"")[0:-12].replace(",","")))
 
 for t2 in naverArr:
+
+    volume = "거래량"
+    value = "가격"
+
+    if count%5==0:
+        print(volume, end="")
+    else:
+        print(value, end="")
     print(t2)
+    count=count+1
 
 #for t2 in t:
 #    m = pattern.match(t2)
