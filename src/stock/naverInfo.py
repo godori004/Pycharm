@@ -25,10 +25,9 @@ def get_price_to_dataFrame(url):
     return df
 
 def get_price_to_str(url):
+    return get_info_arr(url)[0]
 
-    count = 0
-    date = ""
-    value = 0
+def get_info_arr(url):
 
     http = urllib3.PoolManager()
     req = http.request('GET', url)
@@ -38,9 +37,10 @@ def get_price_to_str(url):
     a = a.replace('\\t', '')
     a = a.split('\n')
 
+    naverArr = []
+
     for t2 in a:
         if t2.startswith(INDEX):
-            value = int(t2.replace(INDEX,"")[0:-12].replace(",",""))
-            break
+            naverArr.append(int(t2.replace(INDEX,"")[0:-12].replace(",","")))
 
-    return value
+    return naverArr
