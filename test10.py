@@ -1,7 +1,6 @@
 import urllib3
 import re
-from datetime import datetime, timedelta
-from stock import naverInfo
+from datetime import datetime
 
 http = urllib3.PoolManager()
 

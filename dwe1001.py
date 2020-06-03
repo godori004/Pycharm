@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import time
-from google.cloud import bigquery
+from src.googleutil import bigquery
 
 def bq_job(stdr_dt) :
 	loop = 0

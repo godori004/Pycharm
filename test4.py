@@ -1,6 +1,5 @@
 import urllib3
 import json
-from common import kakao
 
 accessToken='PCeOZm56toA1Y568FyYbQPgt2ioe2FFHmUdGIAopyNkAAAFxTJMq_Q';
 #Ih7NfdTTvFbW7xxFQSLEf5qSeKSdLNyMzBKmVQo9dVoAAAFxPtCllA

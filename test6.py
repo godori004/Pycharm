@@ -1,5 +1,4 @@
-from stock import *
-import pandas as pd
+from src.stock import *
 import time
 
 sleepTime = 10  #틱
@@ -10,6 +9,5 @@ while True:
     for stockInfo in stockArr:
         tmp = "{} : {}|".format(stockInfo.name, stockInfo.getCurrentValueStr())
         print(tmp, end='')
-
-    print('-----------------------------------------------------')
+    print()
     time.sleep(sleepTime)

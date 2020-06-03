@@ -1,14 +1,15 @@
 import pandas as pd
-from stock import corpInfo, procStock
+from src.stock import procStock, corpInfo
+
 
 def getMyStockInfo():
-    df = pd.read_csv("C:/Users/DAL/Documents/GitHub/Pycharm/stock/resource/myStockInfo", index_col='index')
+    df = pd.read_csv("C:/Users/DAL/Documents/GitHub/Pycharm/src/stock/resource/myStockInfo", index_col='index')
     return df
 
 def getMyStockObject(*args):
 
     if len(args)==0:
-        nameArr = ('엑스큐어', '세틀뱅크', '롯데하이마트', '카스', 'LG디스플레이', '아이진', '다우기술', '윙입푸드', '에스폴리텍', '에이치엘비파워', '네오셈', '아시아나IDT')
+        nameArr = ('엑스큐어', '롯데하이마트', '카스', 'LG디스플레이', '아이진', '덕우전자', '윙입푸드', '삼성전자', '에이치엘비파워', '네오셈', '상아프론테크', '한국공항', '비엠티')
     elif len(args)>1:
         raise ValueError('인자가 너무 많습니다.')
     elif type(args[0])!=tuple:

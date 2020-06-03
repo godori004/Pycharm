@@ -1,4 +1,4 @@
-from common import kakao
+from src.common import kakao
 
 #kaka
 kakao.getToken();

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys
 import time
-from google.cloud import bigquery
-from google.cloud import storage
+from src.googleutil import bigquery
+from src.googleutil import storage
 
 
 def bq_job(stdr_dt):
