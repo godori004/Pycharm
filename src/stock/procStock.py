@@ -4,9 +4,16 @@ from pandas import DataFrame
 
 class ProcStock:
     def __init__(self, name, code, df):
+
+        self.CUR_VALUE = 0
+        self.TODAY_VOLUME = 4
+        self.YESTERDAY_VOLUME = 9
+
         # stock 정보
         self.code = code
         self.name = name
+        self.curVolume = 0
+        self.beforVolume = 0
 
         # naver 관련
         self.naverUrl = None
@@ -30,7 +37,6 @@ class ProcStock:
     # 변수 초기화 메소드
     def initalize(self):
         self.naverUrl = naverInfo.get_url(self.code)
-        # self.naverArr = self.getNaverInfoArr()
 
     def setCode(self, code):
         self.code = code
@@ -47,14 +53,47 @@ class ProcStock:
     def getCurrentValueStr(self):
         # 한번 더 호출 해야 갱신 된다.
         self.setNaverInfoArr()
+        return self.naverArr[self.CUR_VALUE]
 
-        return self.naverArr[0]
+    def isBeforVolumeOver(self):
+        if (self.naverArr[self.TODAY_VOLUME] - self.naverArr[self.YESTERDAY_VOLUME]) > 0:
+            return "거"
+        else:
+            return ""
+
+    def getCurBeforValueRate(self):
+
+        rate = 0
+
+        self.curVolume = self.naverArr[self.TODAY_VOLUME]
+
+        if self.beforVolume > 0:
+            rate = int((self.curVolume / self.beforVolume) * 100)
+
+        print("{} : {} : {}".format(self.code, self.curVolume, self.beforVolume))
+
+        self.beforVolume = self.naverArr[self.TODAY_VOLUME]
+
+        return rate
+
+    def getCurVolumn(self):
+
+        valumn = 0
+
+        self.curVolume = self.naverArr[self.TODAY_VOLUME]
+
+        if self.beforVolume > 0:
+            valumn = int(self.curVolume - self.beforVolume)
+
+        self.beforVolume = self.naverArr[self.TODAY_VOLUME]
+
+        return valumn
 
     def getNaverInfoArr(self):
         return naverInfo.get_info_arr(self.naverUrl)
 
     def setNaverInfoArr(self):
-        if self.naverUrl == None:
+        if self.naverUrl is None:
             raise Exception("naverUrl 호출 이 선행 되어야 합니다.")
 
         self.naverArr = self.getNaverInfoArr()

@@ -7,7 +7,7 @@ stockArr = myStockInfo.getMyStockObject()   #객체 생성
 
 while True:
     for stockInfo in stockArr:
-        tmp = "{} : {}|".format(stockInfo.name, stockInfo.getCurrentValueStr())
+        tmp = "{} : {}{}:{}|".format(stockInfo.name, stockInfo.getCurrentValueStr(), stockInfo.isBeforVolumeOver(), stockInfo.getCurVolumn())
         print(tmp, end='')
     print()
     time.sleep(sleepTime)
