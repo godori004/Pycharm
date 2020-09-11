@@ -81,5 +81,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# My Setting
 /resource/requirements.txt
 /.gitignore
+/resource/config.json
+/resource/chromedriver/
