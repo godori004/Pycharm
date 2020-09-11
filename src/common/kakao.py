@@ -1,4 +1,5 @@
 import urllib3
+from selenium import webdriver
 
 def getCode():
     #GET /oauth/authorize?client_id={app_key}&redirect_uri=http://test&response_type=code HTTP/1.1
@@ -39,3 +40,26 @@ def getToken():
                      fields={'grant_type': 'authorization_code', 'client_id': restKey, 'redirect_uri':'https://www.naver.com', 'code': code})
 
     print(r.data.decode())
+
+def getLoginCode():
+    driver = webdriver.Chrome("resource/chromedriver/85/win_chromedriver.exe")
+
+    driver.get("https://accounts.kakao.com/login?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26redirect_uri%3Dhttps%253A%252F%252Fwww.naver.com%26client_id%3Dec35680abe2bc3a507a0bb672c4fabfb")
+
+    #id 입력 진행
+    query = driver.find_element_by_id("id_email_2")
+    query.send_keys("godori004@naver.com")
+
+    #pw 입력 진행
+    query = driver.find_element_by_id("id_password_3")
+    query.send_keys("db2386")
+
+    #login 버튼 클릭
+    query = driver.find_element_by_class_name("submit")
+    query.click()
+
+    #code 가져오기
+    key = driver.current_url
+    code = key[key.find("code")+5:]
+
+    return code

@@ -1,9 +1,0 @@
-from selenium import webdriver
-
-driver = webdriver.Chrome("C://test./chromedriver.exe")
-
-driver.get("http://www.naver.com")
-
-query = driver.find_element_by_class_name("input_text")
-query.send_keys("코로나")
-
