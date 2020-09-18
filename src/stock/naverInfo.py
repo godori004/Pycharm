@@ -39,16 +39,24 @@ def set_parse_resData(resData):
     resData = resData.split('\n')
     return resData
 
-def get_naverArr(resData, len=None):
+def get_naverArr(resData, length=None):
+
     naverArr = []
-    end      = len  #총 가져올 길이 오늘 날짜만 가져오면 5
+
+    if length is None:
+        length = 10  #기본 10일 처리
 
     for data in resData:
+        #INDEX = '<td class="num"><span class="tah p11">'
+        #해당 태그가 주가 관련 수치 태그
         if data.startswith(INDEX):
+            #수치 태그일 경우 수치를 제외한 태그를 replace 한 후 숫자 변환 return 값에 append처리 한다.
             naverArr.append(int(data.replace(INDEX,"")[0:-12].replace(",","")))
 
-        if len is not None:
-            if len(naverArr) == end:
+        if length is not None:
+            #naverArr에 값을 계속 대입 증가 len 함수를 이용 하여 Array Size 체크
+            #check한 Array Size가 전달한 값과 같은면 for 문 break return 한다.
+            if len(naverArr) == length:
                 break;
 
     return naverArr

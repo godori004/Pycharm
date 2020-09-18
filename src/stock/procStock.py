@@ -3,7 +3,7 @@ from pandas import DataFrame
 
 
 class ProcStock:
-    def __init__(self, name, code, df):
+    def __init__(self, name, code):
 
         self.CUR_VALUE = 0
         self.TODAY_VOLUME = 4
@@ -60,6 +60,10 @@ class ProcStock:
             return "거"
         else:
             return ""
+
+    def getYesterTodayRatio(self):
+        ratio = self.naverArr[self.TODAY_VOLUME] / self.naverArr[self.YESTERDAY_VOLUME] * 100
+        return int(ratio)
 
     def getCurBeforValueRate(self):
 
