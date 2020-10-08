@@ -57,7 +57,16 @@ def get_download_kosdaq():
 def get_concat_corpInfo(kospi_df, kosdaq_df):
 
     pdData = pd.concat([kospi_df, kosdaq_df])
+
     pdData = pdData[['회사명', '종목코드', '업종']]
+
+    ######추후 수정 필요
+    addData = [('동양물산', '002900.KQ', '')]
+    # Create a DataFrame object
+    pAddData = pd.DataFrame(addData, columns=['회사명', '종목코드', '업종'])
+
+    pdData = pd.concat([pdData, pAddData])
+    #########
     pdData = pdData.rename(columns={'회사명': 'name', '종목코드': 'code', '업종': 'sector'})
     pdData = pdData.fillna('-')
     return pdData

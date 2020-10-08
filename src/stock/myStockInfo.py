@@ -9,8 +9,8 @@ def getMyStockInfo():
 def getMyStockObject(*args):
 
     if len(args)==0:
-        nameArr = ('한국공항', '롯데하이마트', '현대로템', 'PI첨단소재', '세틀뱅크', '윙입푸드', 
-                   '에스씨엠생명과학', '수산중공업', '녹십자엠에스', '압타바이오', '효성중공업')
+        nameArr = ('씨유메디칼', '롯데하이마트', '현대로템', '세틀뱅크', 'PI첨단소재', '동양물산',
+                   '수산중공업', '녹십자엠에스', '압타바이오', '이아이디')
     elif len(args)>1:
         raise ValueError('인자가 너무 많습니다.')
     elif type(args[0])!=tuple:
