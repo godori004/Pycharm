@@ -8,7 +8,10 @@ INDEX='<td class="num"><span class="tah p11">'
 
 VOLUME = 5
 
-req = http.request('GET', "http://finance.naver.com/item/sise_day.nhn?code=900340")
+headers = {
+	"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
+}
+req = http.request('GET', "http://finance.naver.com/item/sise_day.nhn?code=900340", headers=headers)
 a = str(req.data)
 
 count = 1
@@ -33,7 +36,6 @@ for t2 in t:
         naverArr.append(int(t2.replace(INDEX,"")[0:-12].replace(",","")))
 
 for t2 in naverArr:
-
     volume = "거래량"
     value = "가격"
 
